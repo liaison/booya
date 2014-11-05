@@ -60,9 +60,9 @@ public class BoolExpParser {
 				//TODO: set the OR constraint
 				expStack.push(node);
 			
-			}else if(e == TOKEN_TYPE.INFER_OP){
+			}else if(e == TOKEN_TYPE.IMPLY_OP){
 				BENode node = new BENode();
-				node.setNodeType(BENodeType.INFER);
+				node.setNodeType(BENodeType.IMPLY);
 				//TODO: set the INFER constraint
 				expStack.push(node);
 			
@@ -76,7 +76,7 @@ public class BoolExpParser {
 				
 				BENode node = new BENode();
 				node.setNodeType(BENodeType.VAR);
-				//node.setNodeValue(value);
+				node.setNodeValue(t.value);
 				
 				expStack.push(node);
 				
@@ -92,7 +92,8 @@ public class BoolExpParser {
 				refineExpStack(expStack);
 			}
 			
-			System.out.println("type:" + t.type + "\tvalue:" + t.value);
+			//Debugging log
+			//System.out.println("type:" + t.type + "\tvalue:" + t.value);
 		
 		}
 		
@@ -113,8 +114,8 @@ public class BoolExpParser {
 		subExpStack.addAll(expStack.subList(parenIndex+1, expStack.size()));
 		
 		//TODO: remove me, Debugging
-		System.out.println("p:" + parenIndex + " exp_size:" + expStack.size() + 
-										    " subexp_size:" + subExpStack.size());
+		//System.out.println("p:" + parenIndex + " exp_size:" + expStack.size() + 
+		//								    " subexp_size:" + subExpStack.size());
 		//printExpStack(subExpStack);
 		
 		refineExpStack(subExpStack);
@@ -153,7 +154,7 @@ public class BoolExpParser {
 		// Binary operator  &&  || 
 		if(nextNodeType == BENode.BENodeType.AND ||
 		   nextNodeType == BENode.BENodeType.OR  ||
-		   nextNodeType == BENode.BENodeType.INFER){
+		   nextNodeType == BENode.BENodeType.IMPLY){
 			
 			BENode newRoot = expStack.pop();
 			BENode leftChild = expStack.pop();

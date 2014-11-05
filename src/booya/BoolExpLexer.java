@@ -1,10 +1,8 @@
 package booya;
 
-
 import java.util.LinkedList;
+import booya.tokenizer.*;
 
-import booya.tokenizer.Token;
-import booya.tokenizer.Tokenizer;
 
 /**
  * A lexer to parse the tokens from a boolean expression.
@@ -15,7 +13,7 @@ import booya.tokenizer.Tokenizer;
 
 public class BoolExpLexer {
 	public enum TOKEN_TYPE {
-		L_PAREN, R_PAREN, NOT_OP, AND_OP, OR_OP, INFER_OP, ID;
+		L_PAREN, R_PAREN, NOT_OP, AND_OP, OR_OP, IMPLY_OP, ID;
 
 		public static TOKEN_TYPE fromOrdinal(int x) {
 			switch (x) {
@@ -30,7 +28,7 @@ public class BoolExpLexer {
 			case 4:
 				return OR_OP;
 			case 5:
-				return INFER_OP;
+				return IMPLY_OP;
 			case 6:
 				return ID;
 			}
@@ -48,7 +46,7 @@ public class BoolExpLexer {
 		tokenizer.add("\\!", TOKEN_TYPE.NOT_OP.ordinal());
 		tokenizer.add("\\&\\&", TOKEN_TYPE.AND_OP.ordinal());
 		tokenizer.add("\\|\\|", TOKEN_TYPE.OR_OP.ordinal());
-		tokenizer.add("\\->",   TOKEN_TYPE.INFER_OP.ordinal());
+		tokenizer.add("\\->",   TOKEN_TYPE.IMPLY_OP.ordinal());
 		tokenizer.add("[a-zA-Z0-9_]*", TOKEN_TYPE.ID.ordinal());
 	}
 	

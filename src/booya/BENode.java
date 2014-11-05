@@ -1,4 +1,7 @@
 package booya;
+
+
+
 /**
  * A node that represents a unit in a boolean expression.
  * 
@@ -9,7 +12,7 @@ package booya;
  * 
  */
 public class BENode {
-	public enum BENodeType {AND, OR, NOT, INFER, VAR, PARENTHESE};
+	public enum BENodeType {AND, OR, NOT, IMPLY, VAR, PARENTHESE};
 	
 	private BENode left=null,right=null;
 	
@@ -81,28 +84,37 @@ public class BENode {
 	{
 		String self=graphNodeID+":"+node.getNodeType().toString();
 		graphNodeID++;
-		
+		if(node.getNodeType()==BENodeType.VAR)
+		{
+			graph.append("\""+self+"\"" );
+			return;
+		}
 		if(node.getLeft().getNodeType()==BENodeType.VAR)
+		{
 			graph.append("\""+self+"\" -> \""+graphNodeID+":"+node.getLeft().getNodeValue() +"\";\r\n");
+			graphNodeID++;
+		}
 		else
 		{
 			String left=graphNodeID+":"+node.getLeft().getNodeType().toString();
 			graph.append("\""+self+"\" -> \""+left +"\";\r\n");
 			doPrintGraph(node.getLeft());			
 		}
-		graphNodeID++;
+		
 		
 		if(node.getRight()==null)
 			return;
 		if(node.getRight().getNodeType()==BENodeType.VAR)
+		{
 			graph.append("\""+self+"\" -> \""+graphNodeID+":"+node.getRight().getNodeValue() +"\";\r\n");
+			graphNodeID++;
+		}
 		else
 		{
 			String Right=graphNodeID+":"+node.getRight().getNodeType().toString();
 			graph.append("\""+self+"\" -> \""+Right+"\";\r\n");
 			doPrintGraph(node.getRight());			
 		}
-		graphNodeID++;
 		
 	}
 	public void printAsGraph(){
