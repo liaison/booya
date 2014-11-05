@@ -1,4 +1,5 @@
 package booya;
+
 /**
  * A node that represents a unit in a boolean expression.
  * 
@@ -9,7 +10,7 @@ package booya;
  * 
  */
 public class BENode {
-	public enum BENodeType {AND, OR, NOT, INFER, VAR, PARENTHESE};
+	public enum BENodeType {AND, OR, NOT, IMPLY, VAR, PARENTHESE};
 	
 	private BENode left=null,right=null;
 	
@@ -130,7 +131,11 @@ public class BENode {
 			System.out.print("<--");
 		}
 		
-		System.out.print("|" + this.type.toString() + "|");
+		if(this.type == BENode.BENodeType.VAR){
+			System.out.print("|" + this.value + "|");
+		}else{
+			System.out.print("|" + this.type.toString() + "|");
+		}
 		
 		if(this.right != null){
 			System.out.print("-->");
@@ -139,6 +144,7 @@ public class BENode {
 	
 		System.out.print(")");
 	}
+	
 	
 }
 
