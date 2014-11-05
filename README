@@ -1,0 +1,18 @@
+
+
+##===========================================
+
+This is a Java project that is intended to parse the boolean expression into a binary tree. 
+
+First of all, the problem seems to be a typical parsing problem, that one might resort to any kind of parser generator framework such as ANTLR. But I figured that it seems to be too heavy to employ any framework.It feels like killing a mosquito with a machine gun. I expect to have certain tokenizer class that can do the lexing part, since the grammar is actually not complicated. 
+
+Eventually, I did find a nice Tokenizer class that implements the tokenizing with regex. I was happy to reuse their code in this project. 
+
+The second part of the problem is the parser, given the lexer. As one might figure, the problem is similar with the evaluation of the arithematic expression, which we typically employ the stack data structure to do so. So the overall solution here did use the stack. A trick part is the handling of parentheses, which in my implementation, I divided the expression into sub-expression on-the-fly when the parser comes across parenthese and then the parser recursively refine/evaluation the expression until there is only node left. 
+
+@author:  Lisong Guo <lisong.guo@inria.fr>
+@date:    Nov 04, 2014
+
+
+##===========================================
+
