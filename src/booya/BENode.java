@@ -1,7 +1,6 @@
 package booya;
 
 
-
 /**
  * A node that represents a unit in a boolean expression.
  * 
@@ -142,7 +141,11 @@ public class BENode {
 			System.out.print("<--");
 		}
 		
-		System.out.print("|" + this.type.toString() + "|");
+		if(this.type == BENode.BENodeType.VAR){
+			System.out.print("|" + this.value + "|");
+		}else{
+			System.out.print("|" + this.type.toString() + "|");
+		}
 		
 		if(this.right != null){
 			System.out.print("-->");
@@ -151,6 +154,7 @@ public class BENode {
 	
 		System.out.print(")");
 	}
+	
 	
 }
 

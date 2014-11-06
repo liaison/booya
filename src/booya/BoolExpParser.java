@@ -5,9 +5,8 @@ import java.util.LinkedList;
 import java.util.Stack;
 
 import booya.tokenizer.Token;
-import booya.BoolExpLexer.TOKEN_TYPE;
-import booya.BENode;
 import booya.BENode.BENodeType;
+import booya.BoolExpLexer.TOKEN_TYPE;
 
 /**
  * 
@@ -51,25 +50,21 @@ public class BoolExpParser {
 			}else if(e == TOKEN_TYPE.AND_OP){
 				BENode node = new BENode();
 				node.setNodeType(BENodeType.AND);
-				//TODO: set the AND constraint
 				expStack.push(node);
 			
 			}else if(e == TOKEN_TYPE.OR_OP){
 				BENode node = new BENode();
 				node.setNodeType(BENodeType.OR);
-				//TODO: set the OR constraint
 				expStack.push(node);
 			
 			}else if(e == TOKEN_TYPE.IMPLY_OP){
 				BENode node = new BENode();
 				node.setNodeType(BENodeType.IMPLY);
-				//TODO: set the INFER constraint
 				expStack.push(node);
 			
 			}else if(e == TOKEN_TYPE.NOT_OP){
 				BENode node = new BENode();
 				node.setNodeType(BENodeType.NOT);
-				//TODO: set the NOT constraint
 				expStack.push(node);
 			
 			}else if(e == TOKEN_TYPE.ID){
@@ -103,7 +98,7 @@ public class BoolExpParser {
 	}
 	
 
-	private void evalSubExp(Stack<BENode> expStack){
+	private static void evalSubExp(Stack<BENode> expStack){
 		
 		BENode parenNode = expStack.pop();
 				
@@ -120,7 +115,6 @@ public class BoolExpParser {
 		
 		refineExpStack(subExpStack);
 		BENode subExpNode = subExpStack.pop();
-		
 		
 		//Remove the subexpression in the original stack.
 		int count = expStack.size() - parenIndex;
@@ -151,7 +145,7 @@ public class BoolExpParser {
 		BENode next = expStack.peek();
 		BENode.BENodeType nextNodeType = next.getNodeType();
 		
-		// Binary operator  &&  || 
+		// Binary operator  &&, ||, -> 
 		if(nextNodeType == BENode.BENodeType.AND ||
 		   nextNodeType == BENode.BENodeType.OR  ||
 		   nextNodeType == BENode.BENodeType.IMPLY){
